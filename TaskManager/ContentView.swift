@@ -9,15 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack{
+            VStack {
+                WeeklyCalendar()
+            }
+        }.toolbar {
+            ToolbarItem(placement: .confirmationAction){
+                Button{
+                    
+                }label: {
+                    Label {
+                        Text("Adicionar Task")
+                    } icon: {
+                        
+                    }
+
+                }
+            }
         }
-        .padding()
+        }
     }
-}
 
 #Preview {
     ContentView()
