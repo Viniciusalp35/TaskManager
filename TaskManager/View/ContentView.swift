@@ -1,0 +1,62 @@
+//
+//  ContentView.swift
+//  TaskManager
+//
+//  Created by user Bianca Moreira on 20/03/25.
+//
+
+import SwiftData
+import SwiftUI
+
+@MainActor
+class TaskViewModel: ObservableObject {
+    @Published var tasks: [Task] = []
+    private var modelContext: ModelContext
+
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+        fetchTasks()
+    }
+
+    func fetchTasks() {
+        do {
+            let descriptor = FetchDescriptor<Task>(sortBy: [SortDescriptor(\.dueDate)])
+            tasks = try modelContext.fetch(descriptor)
+        } catch {
+            print("Error fetching tasks: \(error)")
+        }
+    }
+
+    func addTask(title: String, description: String, dueDate: Date, tags: String) {
+        let newTask = Task(title: title, taskDescription: description, dueDate: dueDate, tags: tags)
+        modelContext.insert(newTask)
+        saveContext()
+    }
+
+    func updateTask(task: Task, title: String, description: String, dueDate: Date, tags: String) {
+        task.title = title
+        task.taskDescription = description
+        task.dueDate = dueDate
+        task.tags = tags
+        saveContext()
+    }
+
+    func deleteTask(task: Task) {
+        modelContext.delete(task)
+        saveContext()
+    }
+
+    func toggleTaskCompletion(task: Task) {
+        task.isCompleted.toggle()
+        saveContext()
+    }
+
+    private func saveContext() {
+        do {
+            try modelContext.save()
+            fetchTasks()
+        } catch {
+            print("Error saving context: \(error)")
+        }
+    }
+}

@@ -12,7 +12,6 @@ import SwiftData
 struct TimeManagementApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
         }
         .modelContainer(for: Task.self) // Configura o container do SwiftData para o modelo Task
     }
