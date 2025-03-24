@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
-struct TaskManagerApp: App {
+struct TimeManagementApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: Task.self) // Configura o container do SwiftData para o modelo Task
     }
 }
