@@ -42,7 +42,7 @@ extension Date {
         let week = Date.getWeek
         var newWeek:[Date] = []
         for index in 0...6{
-            if let nextWeek = Calendar.current.date(byAdding: .dayOfYear, value: 7, to: week[index]){
+            if let nextWeek = Calendar.current.date(byAdding: .dayOfYear, value: 7*value, to: week[index]){
                 newWeek.append(nextWeek)
             }
         }
