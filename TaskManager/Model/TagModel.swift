@@ -6,17 +6,22 @@
 //
 
 import SwiftData
-import SwiftUICore
+import SwiftUI
 import Foundation
 
 @Model
 final class TagModel {
     var name: String
-    var color: [Float]
+    var color: [Double]
     var symbol: String
-    init(name: String, color: [Float], symbol: String) {
+    
+    init(name: String, color: [Double], symbol: String) {
         self.name = name
         self.color = color
         self.symbol = symbol
+    }
+    
+    func getColor() -> Color {
+        return Color(red: color[0], green: color[1], blue: color[3])
     }
 }
