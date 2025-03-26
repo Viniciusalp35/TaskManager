@@ -15,7 +15,7 @@ struct WeeklyCalendar: View {
     @State var weekCounter:Int = 0
     @State var Offset:CGSize = CGSize(width: 0, height: 0)
     var DaysOfTheWeek = Calendar.current.shortWeekdaySymbols
-    @State var selectedDay = Calendar.current.component(.dayOfYear, from: Date())
+    @Binding var selectedDay:Int
     @State var today = Calendar.current.component(.dayOfYear, from: Date())
     var body: some View {
         let month = NearestsDays[3].formatted(.dateTime.month(.wide))
@@ -50,7 +50,7 @@ struct WeeklyCalendar: View {
                             })
                     )
                     .background(
-                        Calendar.current.component(.dayOfYear,from:NearestsDays[index]) == selectedDay ? RoundedRectangle(cornerRadius:14).fill(ComponentColor).opacity(0.20).padding(.bottom, -7) : RoundedRectangle(cornerRadius:14).fill(Color(.gray)).opacity(0).padding(.top,10)
+                        Calendar.current.component(.dayOfYear,from:NearestsDays[index]) == selectedDay ? RoundedRectangle(cornerRadius:14).fill(ComponentColor).opacity(0.40).padding(.bottom, -7) : RoundedRectangle(cornerRadius:14).fill(Color(.gray)).opacity(0).padding(.top,10)
                     )
                 }
             }.padding(.bottom, 20)
@@ -84,7 +84,7 @@ struct WeeklyCalendar: View {
                     })
             )
         }.background(RoundedRectangle(cornerRadius: 10, style: .continuous)
-            .fill(Color(.white)))
+            .fill(Color(UIColor.systemBackground)))
     }
     func getDaysOfYear() -> [Int]{
         var daysofyear:[Int] = []
@@ -96,5 +96,6 @@ struct WeeklyCalendar: View {
 }
 
 #Preview {
-    WeeklyCalendar()
+    @Previewable @State var selectedday = Calendar.current.component(.dayOfYear, from: Date())
+    WeeklyCalendar(selectedDay: $selectedday)
 }

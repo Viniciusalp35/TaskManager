@@ -13,6 +13,7 @@ final class Task {
     var activity: String
     var details: String
     var date: Date
+    var DayofYear: Int
     var tag: String
     var notification: Bool
 
@@ -22,14 +23,6 @@ final class Task {
         self.date = date
         self.tag = tag
         self.notification = notification
-    }
-}
-
-@Model
-final class UserProgress {
-    var points: Int
-
-    init(points: Int = 0) {
-        self.points = points
+        self.DayofYear = Calendar.current.component(.dayOfYear, from: date)
     }
 }

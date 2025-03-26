@@ -14,6 +14,6 @@ struct TimeManagementApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Task.self) // Configura o container do SwiftData para o modelo Task
+        .modelContainer(for: [Task.self]) // Configura o container do SwiftData para o modelo Task
     }
 }
