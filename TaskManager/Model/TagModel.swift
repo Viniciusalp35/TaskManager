@@ -22,6 +22,6 @@ final class TagModel {
     }
     
     func getColor() -> Color {
-        return Color(red: color[0], green: color[1], blue: color[3])
+        return Color(red: color[0], green: color[1], blue: color[2])
     }
 }

@@ -41,7 +41,8 @@ struct ListTask: View {
                 Spacer()
 //                TagView()
             }
-        }.padding(.all, 10)
+        }
+        .padding(.all, 10)
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(Color(UIColor.systemBackground))

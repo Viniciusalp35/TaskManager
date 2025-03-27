@@ -15,6 +15,7 @@ let componentColor = Color(UIColor.systemIndigo)
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.modelContext) var modelContext
+    @State var addTask: Bool = false
     
     @Query(sort:\Task.date, order: .forward) var Models:[Task]
     
@@ -39,19 +40,26 @@ struct ContentView: View {
                         model in
                         if Calendar.current.component(.dayOfYear, from: model.date) == selectedDay{
                             ListTask(model: model)
+                                .swipeActions{
+                                    deleteTask(model)
+                                }
+                                .frame(maxWidth: .infinity)
                                 .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
                         }
                     }
                 }
-                .listRowSpacing(20)
+                .listRowSpacing(10)
                 .scrollContentBackground(.hidden)
-                .listSectionSeparator(.hidden)
-                .listStyle(InsetGroupedListStyle())
-            }.toolbar{
+                .listStyle(.plain)
+                .sheet(isPresented: $addTask) {
+                    AddTaskView()
+                }
+            }
+            .toolbar{
                 ToolbarItem(placement: .confirmationAction){
                     Button{
-                        modelContext.insert(Task(activity: "bla", details: "bla", date: Date().addingTimeInterval(72000), tag: "a", notification: false))
-                        modelContext.insert(Task(activity: "bla", details: "bla", date: Date(), tag: "a", notification: false))
+                        addTask.toggle()
                     }label: {
                         Label {
                             Text("Adicionar Task")
@@ -81,8 +89,24 @@ struct ContentView: View {
             return Color(red: 0.89, green: 0.89, blue: 1)
         }
     }
+    
+    func deleteTask(_ Task:Task) -> some View{
+        Button(role: .destructive){
+            modelContext.delete(Task)
+//            Tasks.removeAll{
+//                currentTask in currentTask.id == Task.id
+//            }
+        } label: {
+            Label{
+                Text("Delete")
+            }icon: {
+                Image(systemName: "trash")
+            }
+        }
+    }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: [Task.self, TagModel.self], inMemory: true)
 }

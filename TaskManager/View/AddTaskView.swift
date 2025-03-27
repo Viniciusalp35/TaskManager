@@ -36,7 +36,8 @@ struct AddTaskView: View {
                                 maxWidth: 100,
                                 alignment: .leading
                             )
-                        TextField("Insira o nome da tarefa", text: $taskName)
+                        TextField("Insira o nome da tarefa", text: $taskName, axis: .vertical)
+                            .lineLimit(2)
                     }
                     
                     HStack {
@@ -46,14 +47,16 @@ struct AddTaskView: View {
                                 maxWidth: 100,
                                 alignment: .leading
                             )
-                        TextField("Insira o nome da tarefa", text: $taskDetails)
+                        TextField("Insira uma descrição da tarefa:", text: $taskDetails, axis: .vertical)
+                            .lineLimit(5)
+                            .multilineTextAlignment(.leading)
                     }
                     
                     
                 }
                 
                 Section {
-                    DatePicker("Insira uma descrição", selection:
+                    DatePicker("Insira uma Data de inicio", selection:
                                 $taskDate)
                 }
                 Section{
