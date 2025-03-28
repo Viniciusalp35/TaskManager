@@ -1,14 +1,14 @@
-
-//  AddTaskView.swift
+//
+//  NewTagView.swift
 //  TaskManager
 //
-//  Created by User Bianca Moreira on 24/03/25.
+//  Created by User on 27/03/25.
 //
 
 import SwiftUI
 import SwiftData
 
-struct AddTaskView: View {
+struct NewTagView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     
@@ -95,7 +95,7 @@ struct AddTaskView: View {
                                 modelContext.insert(newTask)
                                 dismiss()
                             } label: {
-                                Text("Save")
+                                Text("Salvar")
                             }
                         }
                 
@@ -103,11 +103,11 @@ struct AddTaskView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Text("Cancel")
+                        Text("Voltar")
                     }
                 }
             }
-            .navigationTitle("Atividade")
+            .navigationTitle("Nova tag")
             .navigationBarTitleDisplayMode(.inline)
             
         }
@@ -116,5 +116,6 @@ struct AddTaskView: View {
 
 
 #Preview {
-    AddTaskView()
+    NewTagView()
 }
+
